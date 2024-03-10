@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgn3il26n6oxv"
-path="res://.godot/imported/water.png-1831f533f41a092a1456821a331ebfcf.ctex"
+uid="uid://c3mn0weh5vjir"
+path="res://.godot/imported/bridge2_bottom.png-dd635fdd9afd3de4f81b28a526064fe3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Level1/Sprites/water.png"
-dest_files=["res://.godot/imported/water.png-1831f533f41a092a1456821a331ebfcf.ctex"]
+source_file="res://Levels/Level3/Sprites/images/bridge2_bottom.png"
+dest_files=["res://.godot/imported/bridge2_bottom.png-dd635fdd9afd3de4f81b28a526064fe3.ctex"]
 
 [params]
 
