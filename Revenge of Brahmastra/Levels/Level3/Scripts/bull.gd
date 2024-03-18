@@ -1,120 +1,60 @@
 extends CharacterBody2D
 
-@export  var offsetTillFlip = 20  # How much overlap until the AI will flip
-@export  var AIMovementSpeed = 30 # How fast can the AI move
-
-var moveDir # Current move direction of the AI
-var maxDistance = 600 # When is the AI to far away from the target
-
-#Float
-var maxMoveTime = 1 # Max allowed move time 
-var time = maxMoveTime # Current time until the AI stops moving
-
-var maxTimeTillChoice = 1.2 # Max waiting time until the next choice is made
-var countDown = maxTimeTillChoice # Current time until the next choice is made
-
-#Array
-var gKeys = [] # General Move Keys
-var sKeys = [] # Specific Move Keys
-
-#Vector
-var velocity = Vector2()  # Current velocity of the AI
-
-#Boolean
-var startMoving = false # Check if the AI is allowed to move 
-var isCrouching = false # Check if the AI isn't crouching
-
-#Object
-@onready var animTree = $AnimationTree.get("parameters/playback") # Get the AI animationtree
-@export var player : CharacterBody2D # Target to focus on (currently its Ryu )
-
-#References
-var generalMoves = MoveSetManager.nameDictionary["General"] # Possible general moves of the AI
-var specificMoves = MoveSetManager.nameDictionary[name] # Specific moveset of the current AI
+enum States { IDLE, MOVE, ATTACK, TAKE_HIT }
+var state = States.IDLE
+var player : Node
+var attack_range = 100.0 # Adjust based on your game's scale
+var move_speed = 100.0 # Adjust based on your game's needs
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var animated_sprite = $AnimatedSprite2D
+var chase = false
 
 
 func _ready():
-	# Get all the possible moves by getting all the possible Keys 
-	sKeys = specificMoves.keys()
-	gKeys = generalMoves.keys()
-	
-	countDown = maxTimeTillChoice
+	# Assuming you have a method to find the player, you might use a signal or just search in _process
+	player = get_parent().get_node("Player")
 
 func _process(delta):
-	
-	countDown -= delta
-	if(countDown < 0):
-		_choose_action()
-
-	_face_player()  # Make sure the AI always faces the player
-
-	# Start moving
-	if(startMoving && time > 0 && !isCrouching):
-		_move_AI()
-		time -= delta
-	else:
-		startMoving = false
-		time = maxMoveTime
-
-func _choose_action():
-	var percentagePerStep = float(100) / float(maxDistance) # Get the percentage increase with each step
-#	print("Percentage Per Step = ", (float(percentagePerStep)), "p/s")
-	
-	var chance = percentagePerStep * (abs(player.position.x - position.x)) # Calculate the actual chance that the AI has of its current distance from the player 
-	chance = 100-clamp(chance, 10, 90) # Invert the scale so that, the closer the AI gets to the player the higher the outcome 
-	print("chance = ", chance, "%")
-	
-	if(_return_value() <= chance): # Check if the return value between 0 to 100 is good enough for an attack  
-		print(name, " has picked to attack")
-		var randomAttack = RandomNumberGenerator.new()
-		randomAttack.randomize()
-		var attackValue = randomAttack.randi_range(0, sKeys.size() + gKeys.size() - 1)  # Pick from all possible moves what kind of attack is needed
-		
-		if(attackValue < sKeys.size()):
-			animTree.travel(specificMoves[sKeys[randomAttack.randi_range(0, sKeys.size() - 1)]])
+	velocity.y += gravity * delta
+	if state != States.ATTACK:  # Block movement logic when attacking
+		if chase:
+			var direction = (player.position - self.position).normalized()
+			if direction.x > 0:
+				animated_sprite.play("Run_right")
+			else:
+				animated_sprite.play("Run_left")
+			velocity.x = direction.x * move_speed
 		else:
-			animTree.travel(generalMoves[gKeys[randomAttack.randi_range(0, gKeys.size() - 1)]])
-	else:
-		print(name, " has picked to move")
-		startMoving = true
-		time = maxMoveTime
-		animTree.travel(generalMoves[gKeys[3]])
-		_crouch(false)
-		
-		# IF THE AI IS CROUCHING IT CAN'T MOVE 
-	countDown = maxTimeTillChoice
-
-# Generate a random value between 0 to 100 and return it
-func _return_value():
-	var generator = RandomNumberGenerator.new()
-	var value
-	generator.randomize()
-	value = generator.randi_range(0, 100)
+			animated_sprite.play("IdleLeft")
+			velocity.x = 0
 	
-#	print("-------------------------")
-#	print("Value = ", value, "%")
-#	print("-------------------------")
+	move_and_slide()
+
 	
-	return value
 
-func _face_player():
-	var distanceToPlayer =  player.position.x - position.x # The place AI needs to go to - the place where it is = distance between the spots
+
+func _on_player_detect_body_entered(body):
+	if body.name == "Player":
+		state = States.ATTACK  # Change state to ATTACK
+		var attack_type = "atklght" if randi() % 2 == 0 else "atkhvy"
+		animated_sprite.play(attack_type)
+		await animated_sprite.animation_finished  # Wait for animation to finish
+		state = States.IDLE  # Return to IDLE state
+
+
+func _on_big_area_body_entered(body):
+	if body.name == "Player":
+		chase = true
 	
-	if(distanceToPlayer > offsetTillFlip):    # AI comes from the left
-		moveDir = 1
-		scale.x = scale.y * moveDir
-	elif(distanceToPlayer < -offsetTillFlip):  # AI comes from the right
-		moveDir = -1
-		scale.x = scale.y * moveDir
-	else:
-		moveDir = 0
-
-# A simple function that allows movement
-func _move_AI():
-	velocity = Vector2()
-	velocity.x += moveDir * AIMovementSpeed
-	velocity = move_and_slide(velocity)
 
 
-func _crouch(var input):
-	isCrouching = input
+
+
+func _on_player_detect_body_exited(body):
+	if body.name == "Player":
+		state = States.MOVE
+
+
+func _on_big_area_body_exited(body):
+	if body.name == "Player":
+		chase = false # Replace with function body.

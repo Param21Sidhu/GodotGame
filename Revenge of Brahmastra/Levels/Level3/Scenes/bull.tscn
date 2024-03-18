@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bdoqwycel27ej"]
+[gd_scene load_steps=49 format=3 uid="uid://bdoqwycel27ej"]
 
 [ext_resource type="Texture2D" uid="uid://lkycrv2w7ks5" path="res://Stripes/Enemy/Enemy.png" id="1_6qh55"]
 [ext_resource type="Script" path="res://Levels/Level3/Scripts/bull.gd" id="1_i3mis"]
@@ -330,17 +330,40 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m56ug"]
-radius = 21.0
-height = 42.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2kypg"]
+size = Vector2(61, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu1qp"]
+size = Vector2(156, 78)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n3wx0"]
+radius = 176.026
 
 [node name="Bull" type="CharacterBody2D"]
 script = ExtResource("1_i3mis")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ycwu1")
 animation = &"IdleLeft"
+frame_progress = 0.654639
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
-shape = SubResource("CapsuleShape2D_m56ug")
+position = Vector2(3.5, -10.5)
+shape = SubResource("RectangleShape2D_2kypg")
+
+[node name="playerDetect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetect"]
+position = Vector2(-7, -10)
+shape = SubResource("RectangleShape2D_nu1qp")
+
+[node name="BigArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BigArea"]
+shape = SubResource("CircleShape2D_n3wx0")
+
+[connection signal="body_entered" from="playerDetect" to="." method="_on_player_detect_body_entered"]
+[connection signal="body_exited" from="playerDetect" to="." method="_on_player_detect_body_exited"]
+[connection signal="body_entered" from="BigArea" to="." method="_on_big_area_body_entered"]
+[connection signal="body_exited" from="BigArea" to="." method="_on_big_area_body_exited"]
