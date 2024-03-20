@@ -24,9 +24,11 @@ func _physics_process(delta):
 	if direction:
 		velocity.x = direction * SPEED 
 		if direction == 1:
+			playerAnimation.flip_h = false
 			playerAnimation.animation = "Right"
 		else:
-			playerAnimation.animation = "Left"	 
+			playerAnimation.animation = "Right"
+			playerAnimation.flip_h = true	 
 	elif direction == 0:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
