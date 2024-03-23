@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3w3nw6cfjkmy"
-path="res://.godot/imported/snakesprits.png-5fff00745fafad653aea73fb7ec48cd9.ctex"
+uid="uid://b3je2ibw8u8m2"
+path="res://.godot/imported/enemy-deadth.png-b21e5aeb1d9ecdbcfe7b361e352e5152.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Levels/Level2/sprits/snakesprits.png"
-dest_files=["res://.godot/imported/snakesprits.png-5fff00745fafad653aea73fb7ec48cd9.ctex"]
+source_file="res://Levels/Level2/sprits/enemy-deadth.png"
+dest_files=["res://.godot/imported/enemy-deadth.png-b21e5aeb1d9ecdbcfe7b361e352e5152.ctex"]
 
 [params]
 
