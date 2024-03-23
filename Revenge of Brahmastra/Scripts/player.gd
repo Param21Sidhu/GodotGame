@@ -1,8 +1,15 @@
 extends CharacterBody2D
 
 @onready var playerAnimation = $AnimatedSprite2D
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
+var enemy_inattack_range = false
+var enemy_attack_cooldown= true
+var health = 100
+var player_alive = true
+
+var attack_in_prog = false
+var dir
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -12,7 +19,13 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
+		
+	if health <= 0:
+		player_alive = false
+		health = 0
+		print("PLayer killed")
+		queue_free()
+		#this is wehere we add lost or win screen
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
@@ -20,7 +33,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("ui_left", "ui_right")
-
+	dir = direction
 	if direction:
 		velocity.x = direction * SPEED 
 		if direction == 1:
@@ -31,9 +44,61 @@ func _physics_process(delta):
 			playerAnimation.flip_h = true	 
 	elif direction == 0:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		if velocity.y == 0:
+		if velocity.y == 0 and  !attack_in_prog:
 			playerAnimation.animation = "Idle"
+		
+
 	
-	playerAnimation.play()
-	position.x = clamp(position.x + direction*SPEED*delta,15,1280 - 30)
+	
+	if Input.is_action_just_pressed("hvyAtk"):
+		playerAnimation.animation = "swrdAtkHvy"
+		playerAnimation.play()
+		await  playerAnimation.animation_finished
+
+	position.x = clamp(position.x + direction * SPEED * delta, 15, 1280 - 30)
+	enemy_attack()
 	move_and_slide()
+	playerAnimation.play()
+
+
+func enemy_attack():
+	if enemy_inattack_range and enemy_attack_cooldown == true:
+		health = health - 20
+		enemy_attack_cooldown = false
+		$attack_cooldown.start()
+		print("player took damage")
+	
+func _on_player_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		enemy_inattack_range = true
+		 
+
+
+func _on_player_hitbox_body_exited(body):
+		if body.has_method("enemy"):
+			enemy_inattack_range = true
+		 
+func player():
+	pass
+
+
+func _on_attack_cooldown_timeout():
+	enemy_attack_cooldown = true # Replace with function body.
+
+
+func attack():
+	if Input.is_action_just_pressed("lghtAtk"):
+		Main3.player_current_attack = true
+		attack_in_prog = true
+		if dir == 1:
+			playerAnimation.flip_h = false
+			playerAnimation.animation = "swrdAtk"
+			playerAnimation.play()
+			$deal_attack_timer.start()
+		else:
+			playerAnimation.flip_h = true
+			playerAnimation.animation = "swrdAtk"
+			playerAnimation.play()
+			$deal_attack_timer.start()
+		
+

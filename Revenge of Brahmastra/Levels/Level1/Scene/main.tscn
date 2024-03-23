@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://f0nhnomvpux5" path="res://Levels/Level1/Scene/ground.tscn" id="1_3o42c"]
 [ext_resource type="PackedScene" uid="uid://dfkcwqi81b1ej" path="res://Scenes/player.tscn" id="2_72ehf"]
-[ext_resource type="PackedScene" uid="uid://bdoqwycel27ej" path="res://Levels/Level3/Scenes/bull.tscn" id="3_e1d7g"]
+[ext_resource type="PackedScene" uid="uid://dbqjml4ogdek5" path="res://Scenes/skeleton.tscn" id="3_1yxtq"]
 
 [node name="Main" type="Node"]
 
@@ -15,5 +15,5 @@ zoom = Vector2(1.7, 1.7)
 [node name="Player" parent="." instance=ExtResource("2_72ehf")]
 position = Vector2(186, 814)
 
-[node name="Bull" parent="." instance=ExtResource("3_e1d7g")]
-position = Vector2(395, 791)
+[node name="skeleton" parent="." instance=ExtResource("3_1yxtq")]
+position = Vector2(422, 756)
