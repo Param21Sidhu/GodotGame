@@ -10,6 +10,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var chase = false
 var health = 100
 var player_inattack_zone = false
+var can_take_damage = true
 
 func _ready():
 	# Assuming you have a method to find the player, you might use a signal or just search in _process
@@ -29,7 +30,7 @@ func _process(delta):
 		else:
 			animated_sprite.play("idle")
 			velocity.x = 0
-	
+	update_health()
 	deal_with_damage()
 	move_and_slide()
 
@@ -71,8 +72,20 @@ func _on_attack_area_body_exited(body):
 
 func deal_with_damage():
 	if player_inattack_zone and Main3.player_current_attack == true:
-		health = health - 20
-		print("health = ",health)
+		if can_take_damage == true:
+			health = health - 20
+			#print("health = ",health)
+			$take_damage_cooldown.start()
+			can_take_damage = false
+			if health <= 0:
+				queue_free()
 		
-		if health <= 0:
-			queue_free()
+
+
+func _on_take_damage_cooldown_timeout():
+	can_take_damage = true # Replace with function body.
+
+func update_health():
+	var healthbar = $health
+	healthbar.value = health
+	healthbar.visible = true
