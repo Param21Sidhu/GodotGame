@@ -1,11 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnyxma1fae0d1"]
+[gd_scene load_steps=8 format=3 uid="uid://dnyxma1fae0d1"]
 
 [ext_resource type="PackedScene" uid="uid://bpwnf8r2f8wj6" path="res://Levels/Level4/Scene/ground.tscn" id="1_qo16g"]
+[ext_resource type="Script" path="res://Levels/Level4/Script/main_4.gd" id="1_smpa6"]
+[ext_resource type="PackedScene" uid="uid://dbqjml4ogdek5" path="res://Scenes/skeleton.tscn" id="2_5phya"]
 [ext_resource type="PackedScene" uid="uid://bokahrhsgw7jk" path="res://Levels/Level4/Scene/rolling_rock.tscn" id="2_8f1n4"]
+[ext_resource type="PackedScene" uid="uid://dfkcwqi81b1ej" path="res://Scenes/player.tscn" id="3_0gdye"]
+[ext_resource type="PackedScene" uid="uid://cvuqtl4b1ya5a" path="res://Levels/Level4/Scene/spikes.tscn" id="6_vhq1t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5kdja"]
+size = Vector2(32, 17)
 
 [node name="main4" type="Node2D"]
+script = ExtResource("1_smpa6")
+Enemy = ExtResource("2_5phya")
 
 [node name="Ground" parent="." instance=ExtResource("1_qo16g")]
 
 [node name="RollingRock" parent="." instance=ExtResource("2_8f1n4")]
-position = Vector2(124, 676)
+position = Vector2(12, 461)
+
+[node name="Player" parent="." instance=ExtResource("3_0gdye")]
+position = Vector2(167, 797)
+
+[node name="playerCheckerForEne" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerCheckerForEne"]
+position = Vector2(640, 803.5)
+shape = SubResource("RectangleShape2D_5kdja")
+
+[node name="spikes" parent="." instance=ExtResource("6_vhq1t")]
+position = Vector2(704, 221)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(375, 598)
+zoom = Vector2(1.7, 1.7)
+position_smoothing_enabled = true
+
+[connection signal="body_entered" from="playerCheckerForEne" to="." method="_on_player_checker_for_ene_body_entered"]
+[connection signal="body_entered" from="spikes" to="spikes" method="_on_body_entered"]

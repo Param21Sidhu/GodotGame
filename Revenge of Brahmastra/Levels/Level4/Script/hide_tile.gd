@@ -1,16 +1,16 @@
-extends RigidBody2D
+extends Area2D
 
-var roll_speed = 200
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	pass # Replace with function body.
 
-func _physics_process(delta):
-	apply_central_impulse(Vector2(3,0))
-	#apply_torque(roll_speed)
-	
-	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
+
+func _on_body_entered(body):
+	if body.name == "Player":
+		queue_free() # Replace with function body.
