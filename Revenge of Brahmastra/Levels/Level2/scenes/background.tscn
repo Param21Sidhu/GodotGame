@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cv2gy4empdnm4"]
 
-[ext_resource type="Texture2D" path="res://Levels/Level 2/sprits/1000_F_467116129_DtuQmm1oSOpgCqMAdpsgKsYwoDTnojVq.jpg" id="1_apcvj"]
+[ext_resource type="Texture2D" uid="uid://dbcaxwo5c4ucw" path="res://Levels/Level2/sprits/1000_F_467116129_DtuQmm1oSOpgCqMAdpsgKsYwoDTnojVq.jpg" id="1_3mjcj"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 
@@ -8,6 +8,6 @@
 motion_mirroring = Vector2(980, 0)
 
 [node name="1000F467116129DtuQmm1oSOpgCqMAdpsgKsYwoDTnojVq" type="Sprite2D" parent="ParallaxLayer"]
-position = Vector2(651, 432.25)
-scale = Vector2(1.314, 2.01748)
-texture = ExtResource("1_apcvj")
+position = Vector2(534, 441.937)
+scale = Vector2(1.068, 2.19143)
+texture = ExtResource("1_3mjcj")

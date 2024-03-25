@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcgjhpwp2oml6"]
+[gd_scene load_steps=5 format=3 uid="uid://gd7djq7y4tae"]
 
 [ext_resource type="Script" path="res://Levels/Level3/Scripts/main_3.gd" id="1_h41sq"]
 [ext_resource type="PackedScene" uid="uid://brq32uy383ro7" path="res://Levels/Level3/Scenes/ground.tscn" id="1_j55m1"]
 [ext_resource type="PackedScene" uid="uid://dfkcwqi81b1ej" path="res://Scenes/player.tscn" id="2_80u3l"]
-[ext_resource type="PackedScene" uid="uid://cr01liaesqe64" path="res://Levels/Level3/Scenes/big_bridge.tscn" id="5_mwnou"]
+[ext_resource type="PackedScene" path="res://Levels/Level3/Scenes/big_bridge.tscn" id="5_mwnou"]
 
 [node name="main3" type="Node2D"]
 script = ExtResource("1_h41sq")
