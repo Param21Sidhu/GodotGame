@@ -239,6 +239,8 @@ animations = [{
 radius = 32.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_f6da6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -250,7 +252,7 @@ shape = SubResource("CapsuleShape2D_4412l")
 position = Vector2(7, -42)
 scale = Vector2(1.1, 1.056)
 sprite_frames = SubResource("SpriteFrames_yuw50")
-animation = &"swrdAtk"
+animation = &"Idle"
 
 [node name="player_hitbox" type="Area2D" parent="."]
 
