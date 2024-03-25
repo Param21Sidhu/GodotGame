@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxbm5ikclndno"]
+[gd_scene load_steps=28 format=3 uid="uid://dxbm5ikclndno"]
 
 [ext_resource type="Script" path="res://Levels/Level2/snake.gd" id="1_1s2o2"]
 [ext_resource type="Texture2D" uid="uid://bj3dmcleug557" path="res://Levels/Level2/sprits/snake.png" id="1_r7m88"]
@@ -64,6 +64,30 @@ region = Rect2(320, 64, 64, 64)
 atlas = ExtResource("1_r7m88")
 region = Rect2(384, 64, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kqi7"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kto8y"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lal7h"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ybts0"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(128, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqb77"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(64, 64, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48jlv"]
+atlas = ExtResource("1_r7m88")
+region = Rect2(256, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_mfqqx"]
 animations = [{
 "frames": [{
@@ -125,32 +149,56 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kqi7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kto8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lal7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ybts0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqb77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48jlv")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qodr"]
-radius = 47.0
-height = 94.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_cxefq"]
-radius = 117.277
+radius = 190.011
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dooj"]
+size = Vector2(125, 37)
 
 [node name="Snake" type="CharacterBody2D"]
 script = ExtResource("1_1s2o2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -2)
-scale = Vector2(1.76562, 1.29688)
+position = Vector2(-2, -10.5)
+scale = Vector2(1.76562, 1.20312)
 sprite_frames = SubResource("SpriteFrames_mfqqx")
 animation = &"Attack"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1, 0)
-shape = SubResource("CapsuleShape2D_2qodr")
 
 [node name="Playerdetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Playerdetection"]
+visible = false
+position = Vector2(8, 4)
 shape = SubResource("CircleShape2D_cxefq")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4.5, 11.5)
+shape = SubResource("RectangleShape2D_2dooj")
+
 [connection signal="body_entered" from="Playerdetection" to="." method="_on_playerdetection_body_entered"]
+[connection signal="body_exited" from="Playerdetection" to="." method="_on_playerdetection_body_exited"]
