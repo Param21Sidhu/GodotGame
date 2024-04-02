@@ -85,7 +85,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4u4ac")
 }],
-"loop": true,
+"loop": false,
 "name": &"collcted",
 "speed": 5.0
 }]
@@ -100,7 +100,7 @@ shape = SubResource("CircleShape2D_esmyc")
 position = Vector2(-3, 2.38419e-07)
 scale = Vector2(0.305882, 0.197947)
 sprite_frames = SubResource("SpriteFrames_cd43t")
-animation = &"Idle"
+animation = &"collcted"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
