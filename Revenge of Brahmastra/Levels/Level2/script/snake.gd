@@ -14,7 +14,8 @@ func _physics_process(delta):
 		if get_node("AnimatedSprite2D").animation != "Death":
 			get_node("AnimatedSprite2D").play("Idle")
 		
-
+	
+			
 		var direction = (player.position - self.position).normalized()
 		
 		if direction.x > 0:

@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3 uid="uid://bq1wjhkeqinio"]
+
+[ext_resource type="Script" path="res://Levels/Level2/area_2d.gd" id="1_3sftp"]
+[ext_resource type="Texture2D" uid="uid://dd7sr21l4l7ae" path="res://Levels/Level2/sprits/sword converted.png" id="2_egqlw"]
+[ext_resource type="Texture2D" uid="uid://db2mqgh8udxsi" path="res://Levels/Level2/sprits/collected .png" id="3_bac81"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrcav"]
+atlas = ExtResource("2_egqlw")
+region = Rect2(0, 341, 204, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2rw0y"]
+atlas = ExtResource("2_egqlw")
+region = Rect2(816, 341, 204, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0snxh"]
+atlas = ExtResource("3_bac81")
+region = Rect2(0, 0, 162, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owfcs"]
+atlas = ExtResource("3_bac81")
+region = Rect2(162, 0, 162, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf1wq"]
+atlas = ExtResource("3_bac81")
+region = Rect2(324, 0, 162, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edgxs"]
+atlas = ExtResource("3_bac81")
+region = Rect2(486, 0, 162, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdw6d"]
+atlas = ExtResource("3_bac81")
+region = Rect2(648, 0, 162, 97)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbhbl"]
+atlas = ExtResource("3_bac81")
+region = Rect2(810, 0, 162, 97)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p482u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrcav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2rw0y")
+}],
+"loop": true,
+"name": &"Sword",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0snxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owfcs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yf1wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edgxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdw6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbhbl")
+}],
+"loop": true,
+"name": &"collected",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_183g5"]
+height = 44.0
+
+[node name="Sword collected" type="Area2D"]
+script = ExtResource("1_3sftp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, 4.76837e-07)
+scale = Vector2(0.215686, 0.391753)
+sprite_frames = SubResource("SpriteFrames_p482u")
+animation = &"Sword"
+speed_scale = 0.44
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_183g5")

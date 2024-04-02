@@ -178,7 +178,7 @@ animations = [{
 radius = 190.011
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2dooj"]
-size = Vector2(125, 37)
+size = Vector2(73.5, 37)
 
 [node name="Snake" type="CharacterBody2D"]
 script = ExtResource("1_1s2o2")
@@ -197,7 +197,7 @@ position = Vector2(8, 4)
 shape = SubResource("CircleShape2D_cxefq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-4.5, 11.5)
+position = Vector2(-5.75, -3)
 shape = SubResource("RectangleShape2D_2dooj")
 
 [connection signal="body_entered" from="Playerdetection" to="." method="_on_playerdetection_body_entered"]
