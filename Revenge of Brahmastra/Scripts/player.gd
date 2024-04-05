@@ -141,3 +141,8 @@ func _on_regin_timer_timeout():
 	print(health)
 	if health <= 0:
 		health = 0 # Replace with function body.
+
+
+func _on_area_2d_2_body_entered(body):
+	if  body.name == "Player" :
+		get_tree().reload_current_scene()

@@ -62,3 +62,9 @@ func _on_playerdetection_body_entered(body):
 func _on_playerdetection_body_exited(body):
 	if body.name == "Player":
 		chase = false  # Replace with function body.
+
+
+func _on_area_2d_body_entered(body):
+	if body.name == "Player":
+		body.health -= 50 
+		death()

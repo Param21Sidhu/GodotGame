@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://gd7djq7y4tae"]
+[gd_scene load_steps=6 format=3 uid="uid://gd7djq7y4tae"]
 
 [ext_resource type="Script" path="res://Levels/Level3/Scripts/main_3.gd" id="1_h41sq"]
 [ext_resource type="PackedScene" uid="uid://brq32uy383ro7" path="res://Levels/Level3/Scenes/ground.tscn" id="1_j55m1"]
 [ext_resource type="PackedScene" uid="uid://dfkcwqi81b1ej" path="res://Scenes/player.tscn" id="2_80u3l"]
-[ext_resource type="PackedScene" path="res://Levels/Level3/Scenes/big_bridge.tscn" id="5_mwnou"]
+[ext_resource type="PackedScene" uid="uid://6ploki5eygt6" path="res://Levels/Level3/Scenes/big_bridge.tscn" id="5_mwnou"]
+[ext_resource type="AudioStream" uid="uid://cte354b26offe" path="res://Levels/Level3/Scenes/2019-07-26_-_Healing_Water_FesliyanStudios.com_-_David_Renda.mp3" id="5_umn1n"]
 
 [node name="main3" type="Node2D"]
 script = ExtResource("1_h41sq")
@@ -17,3 +18,7 @@ position = Vector2(285, 480)
 [node name="BigBridge" parent="." instance=ExtResource("5_mwnou")]
 z_index = 1
 position = Vector2(625, 250)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_umn1n")
+autoplay = true

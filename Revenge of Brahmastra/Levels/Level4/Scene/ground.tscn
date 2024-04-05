@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://celx73qqdlaaj" path="res://Levels/Level3/Sprites/wateranimate2.png" id="2_nn54n"]
 [ext_resource type="PackedScene" uid="uid://c20a51nfsubdy" path="res://Levels/Level4/Scene/hide_tile.tscn" id="3_n60tg"]
 [ext_resource type="Texture2D" uid="uid://bim5s6kj4vdis" path="res://Levels/Level4/Sprites/room.png" id="5_b8eg8"]
-[ext_resource type="PackedScene" uid="uid://y8xxpc8oqx4r" path="res://Levels/Level3/Scenes/moving_tile_1.tscn" id="6_fekxu"]
+[ext_resource type="PackedScene" path="res://Levels/Level3/Scenes/moving_tile_1.tscn" id="6_fekxu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_thbn1"]
 texture = ExtResource("1_p0f7y")

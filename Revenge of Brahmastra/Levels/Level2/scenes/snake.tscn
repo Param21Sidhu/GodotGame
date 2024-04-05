@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxbm5ikclndno"]
+[gd_scene load_steps=30 format=3 uid="uid://dxbm5ikclndno"]
 
 [ext_resource type="Script" path="res://Levels/Level2/snake.gd" id="1_1s2o2"]
 [ext_resource type="Texture2D" uid="uid://bj3dmcleug557" path="res://Levels/Level2/sprits/snake.png" id="1_r7m88"]
@@ -183,6 +183,8 @@ size = Vector2(64, 20.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0du6m"]
 size = Vector2(31, 23)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vspoh"]
+
 [node name="Snake" type="CharacterBody2D"]
 script = ExtResource("1_1s2o2")
 
@@ -190,7 +192,7 @@ script = ExtResource("1_1s2o2")
 position = Vector2(-2, -10.5)
 scale = Vector2(1.76562, 1.20312)
 sprite_frames = SubResource("SpriteFrames_mfqqx")
-animation = &"Death"
+animation = &"Idle"
 
 [node name="Playerdetection" type="Area2D" parent="."]
 
@@ -200,15 +202,22 @@ position = Vector2(8, 4)
 shape = SubResource("CircleShape2D_cxefq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(10, 1)
+position = Vector2(16, 3)
 shape = SubResource("RectangleShape2D_2dooj")
 
 [node name="Player death" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player death"]
-position = Vector2(0.5, -1.5)
+position = Vector2(8, -1)
 shape = SubResource("RectangleShape2D_0du6m")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-49, 1)
+shape = SubResource("CircleShape2D_vspoh")
 
 [connection signal="body_entered" from="Playerdetection" to="." method="_on_playerdetection_body_entered"]
 [connection signal="body_exited" from="Playerdetection" to="." method="_on_playerdetection_body_exited"]
 [connection signal="body_entered" from="Player death" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

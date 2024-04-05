@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://1offq3iyfamw"]
+[gd_scene load_steps=5 format=3 uid="uid://1offq3iyfamw"]
 
 [ext_resource type="PackedScene" uid="uid://f0nhnomvpux5" path="res://Levels/Level1/Scene/ground.tscn" id="1_3o42c"]
 [ext_resource type="PackedScene" uid="uid://dfkcwqi81b1ej" path="res://Scenes/player.tscn" id="2_72ehf"]
 [ext_resource type="PackedScene" uid="uid://dbqjml4ogdek5" path="res://Scenes/skeleton.tscn" id="3_1yxtq"]
+[ext_resource type="AudioStream" uid="uid://c5essdc6i15uo" path="res://Levels/Level1/Scene/2019-10-30_-_Action_Rhythms_-_David_Fesliyan.mp3" id="4_jcoio"]
 
 [node name="Main" type="Node"]
 
@@ -17,3 +18,7 @@ position = Vector2(186, 814)
 
 [node name="skeleton" parent="." instance=ExtResource("3_1yxtq")]
 position = Vector2(422, 756)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jcoio")
+autoplay = true
